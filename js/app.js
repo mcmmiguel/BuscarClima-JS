@@ -68,16 +68,34 @@ async function consultarAPI(ciudad, pais) {
 };
 
 function mostrarClima(datos) {
-    const { main: { temp, temp_max, temp_min } } = datos;
+    const { name, main: { temp, temp_max, temp_min } } = datos;
+
     const centigrados = kelvinACentigrados(temp);
+    const max = kelvinACentigrados(temp_max);
+    const min = kelvinACentigrados(temp_min);
+
+    const nombreCiudad = document.createElement('p');
+    nombreCiudad.textContent = `Clima en ${name}`;
+    nombreCiudad.classList.add('font-bold', 'text-2xl');
 
     const actual = document.createElement('p');
     actual.innerHTML = `${centigrados} &#8451;`;
     actual.classList.add('font-bold', 'text-6xl');
 
+    const temperaturaMax = document.createElement('p');
+    temperaturaMax.innerHTML = `Max: ${max} &#8451;`;
+    temperaturaMax.classList.add('text-xl');
+
+    const temperaturaMin = document.createElement('p');
+    temperaturaMin.innerHTML = `Min: ${min} &#8451;`;
+    temperaturaMin.classList.add('text-xl');
+
     const resultadoDiv = document.createElement('div');
     resultadoDiv.classList.add('text-center', 'text-white');
+    resultadoDiv.appendChild(nombreCiudad);
     resultadoDiv.appendChild(actual);
+    resultadoDiv.appendChild(temperaturaMax);
+    resultadoDiv.appendChild(temperaturaMin);
 
     resultado.appendChild(resultadoDiv);
 };
