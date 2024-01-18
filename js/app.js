@@ -52,6 +52,8 @@ async function consultarAPI(ciudad, pais) {
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${apiKey}`;
 
+    spinner(); //spinner de carga
+
     fetch(url)
         .then(respuesta => respuesta.json())
         .then(datos => {
@@ -107,3 +109,15 @@ function limpiarHTML() {
         resultado.removeChild(resultado.firstChild);
     }
 };
+
+function spinner() {
+    limpiarHTML();
+    const divSpinner = document.createElement('div');
+    divSpinner.classList.add('spinner');
+    divSpinner.innerHTML = `
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+    `;
+
+    resultado.appendChild(divSpinner);
+}
